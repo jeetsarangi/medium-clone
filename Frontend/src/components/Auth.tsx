@@ -17,9 +17,10 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
             //zod will work for both signin and signup since we ignore the name field by zod
             const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`, postInputs);
             const jwt = response.data;
-            console.log("received")
-            localStorage.setItem("token", jwt);
+            console.log(jwt["jwt"])
+            localStorage.setItem("token1",jwt["jwt"]);
             navigate("/blogs");
+            // console.log("received")
         } catch(e) {
             alert("Error while signing up")
             // alert the user here that the request failed
@@ -41,13 +42,13 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                     </div>
                 </div>
                 <div className="pt-8">
-                    {type === "signup" ? <LabelledInput label="Name" placeholder="Harkirat Singh..." onChange={(e) => {
+                    {type === "signup" ? <LabelledInput label="Name" placeholder="Jeet..." onChange={(e) => {
                         setPostInputs({
                             ...postInputs,
                             name: e.target.value
                         })
                     }} /> : null}
-                    <LabelledInput label="Email" placeholder="harkirat@gmail.com" onChange={(e) => {
+                    <LabelledInput label="Email" placeholder="jeet@gmail.com" onChange={(e) => {
                         setPostInputs({
                             ...postInputs,
                             email: e.target.value

@@ -4,6 +4,8 @@ import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { userRouter } from './router/user';
 import { blogRouter } from './router/blog';
+import { cors } from 'hono/cors'
+
 const app = new Hono<{
 	Bindings: {
 		DATABASE_URL: string,
@@ -28,6 +30,7 @@ const app = new Hono<{
 // Create the main Hono app
 //const app = new Hono();
 
+app.use('/*', cors())
 app.route("api/v1/user",userRouter);
 app.route("api/v1/blog",blogRouter);
 
